@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { ALL_COUNTRY_LOCATIONS, TOP_FOOTER_INTERNATIONAL_LOCATIONS } from '../data/locationsData';
 

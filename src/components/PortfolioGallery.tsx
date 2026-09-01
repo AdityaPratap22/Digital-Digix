@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { socialMediaProjects, type SocialMediaProject } from '../data/portfolioData';
 

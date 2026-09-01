@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 export type LeaderPerson = 'harsh' | 'khwahish' | 'why-us' | 'team' | null;

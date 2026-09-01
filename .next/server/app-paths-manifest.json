@@ -1,0 +1,19 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/about/page": "app/about/page.js",
+  "/design-item/[slug]/page": "app/design-item/[slug]/page.js",
+  "/industries/page": "app/industries/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/graphic-details/[slug]/page": "app/graphic-details/[slug]/page.js",
+  "/graphic-details/page": "app/graphic-details/page.js",
+  "/industries/[slug]/page": "app/industries/[slug]/page.js",
+  "/locations/page": "app/locations/page.js",
+  "/page": "app/page.js",
+  "/portfolio/page": "app/portfolio/page.js",
+  "/services/[slug]/page": "app/services/[slug]/page.js",
+  "/location/[slug]/page": "app/location/[slug]/page.js",
+  "/smm/page": "app/smm/page.js",
+  "/services/page": "app/services/page.js"
+}

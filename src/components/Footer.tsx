@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import type { PageView } from '../types';
 import { TOP_FOOTER_INTERNATIONAL_LOCATIONS } from '../data/locationsData';

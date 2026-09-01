@@ -1,24 +1,50 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+
+import React, { useState, useEffect, useMemo } from 'react';
+import { usePathname } from 'next/navigation';
 import type { Currency, PageView } from '../types';
 import type { LeaderPerson } from './LeadershipModal';
 
 interface HeaderProps {
-  activePage: PageView;
+  activePage?: PageView;
   onNavigate: (page: PageView, slug?: string) => void;
   currency?: Currency;
   onCurrencyChange?: (c: Currency) => void;
   theme?: 'light' | 'dark';
   onThemeToggle?: () => void;
-  onOpenStrategyModal: () => void;
-  onOpenLeaderModal: (person: LeaderPerson) => void;
+  onOpenStrategyModal?: () => void;
+  onOpenLeaderModal?: (person: LeaderPerson) => void;
+  onOpenSearchModal?: () => void;
+  onOpenLocationsModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  activePage,
-  onNavigate,
-  onOpenStrategyModal,
-  onOpenLeaderModal,
+  activePage = 'home',
+  onNavigate = () => {},
+  currency = 'INR',
+  onCurrencyChange = () => {},
+  theme = 'light',
+  onThemeToggle = () => {},
+  onOpenStrategyModal = () => {},
+  onOpenLeaderModal = () => {},
+  onOpenSearchModal = () => {},
+  onOpenLocationsModal = () => {},
 }) => {
+  const pathname = usePathname() || '/';
+
+  const currentActive = useMemo(() => {
+    if (!pathname || pathname === '/') return 'home';
+    if (pathname.startsWith('/about')) return 'about';
+    if (pathname.startsWith('/services') || pathname.startsWith('/graphic-details') || pathname.startsWith('/design-item')) return 'services';
+    if (pathname.startsWith('/industries')) return 'industries';
+    if (pathname.startsWith('/portfolio')) return 'portfolio';
+    if (pathname.startsWith('/blog')) return 'blog';
+    if (pathname.startsWith('/smm')) return 'smm';
+    if (pathname.startsWith('/contact')) return 'contact';
+    if (pathname.startsWith('/location')) return 'location';
+    return activePage || 'home';
+  }, [pathname, activePage]);
+
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -96,7 +122,7 @@ export const Header: React.FC<HeaderProps> = ({
           <nav className="nav-menu desktop-nav-only">
             <button
               onClick={() => onNavigate('home')}
-              className={`nav-link-item ${activePage === 'home' ? 'active' : ''}`}
+              className={`nav-link-item ${currentActive === 'home' ? 'active' : ''}`}
             >
               Home
             </button>
@@ -112,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({
                   setIsAboutDropdownOpen(false);
                   onNavigate('about');
                 }}
-                className={`nav-link-item ${activePage === 'about' ? 'active' : ''}`}
+                className={`nav-link-item ${currentActive === 'about' ? 'active' : ''}`}
                 style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer' }}
                 title="Click to view About Us Page"
               >
@@ -244,42 +270,42 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('services')}
-              className={`nav-link-item ${activePage === 'services' ? 'active' : ''}`}
+              className={`nav-link-item ${currentActive === 'services' ? 'active' : ''}`}
             >
               Services
             </button>
 
             <button
               onClick={() => onNavigate('industries')}
-              className={`nav-link-item ${activePage === 'industries' ? 'active' : ''}`}
+              className={`nav-link-item ${currentActive === 'industries' ? 'active' : ''}`}
             >
               Industries
             </button>
 
             <button
               onClick={() => onNavigate('portfolio')}
-              className={`nav-link-item ${activePage === 'portfolio' ? 'active' : ''}`}
+              className={`nav-link-item ${currentActive === 'portfolio' ? 'active' : ''}`}
             >
               Our Work
             </button>
 
             <button
               onClick={() => onNavigate('blog')}
-              className={`nav-link-item ${activePage === 'blog' ? 'active' : ''}`}
+              className={`nav-link-item ${currentActive === 'blog' ? 'active' : ''}`}
             >
               Blog
             </button>
 
             <button
               onClick={() => onNavigate('smm')}
-              className={`nav-link-item ${activePage === 'smm' ? 'active' : ''}`}
+              className={`nav-link-item ${currentActive === 'smm' ? 'active' : ''}`}
             >
               SMM
             </button>
 
             <button
               onClick={() => onNavigate('contact')}
-              className={`nav-link-item ${activePage === 'contact' ? 'active' : ''}`}
+              className={`nav-link-item ${currentActive === 'contact' ? 'active' : ''}`}
             >
               Contact
             </button>
@@ -325,7 +351,7 @@ export const Header: React.FC<HeaderProps> = ({
               {/* Drawer Menu Items */}
               <div className="mobile-drawer-body">
                 <button
-                  className={`mobile-drawer-link ${activePage === 'home' ? 'active' : ''}`}
+                  className={`mobile-drawer-link ${currentActive === 'home' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('home')}
                 >
                   <span>Home</span>
@@ -333,7 +359,7 @@ export const Header: React.FC<HeaderProps> = ({
 
                 <div className="mobile-drawer-link-group">
                   <button
-                    className={`mobile-drawer-link ${activePage === 'about' ? 'active' : ''}`}
+                    className={`mobile-drawer-link ${currentActive === 'about' ? 'active' : ''}`}
                     onClick={() => {
                       setIsAboutDropdownOpen(!isAboutDropdownOpen);
                     }}
@@ -355,42 +381,42 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
 
                 <button
-                  className={`mobile-drawer-link ${activePage === 'services' ? 'active' : ''}`}
+                  className={`mobile-drawer-link ${currentActive === 'services' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('services')}
                 >
                   <span>Services</span>
                 </button>
 
                 <button
-                  className={`mobile-drawer-link ${activePage === 'portfolio' ? 'active' : ''}`}
+                  className={`mobile-drawer-link ${currentActive === 'portfolio' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('portfolio')}
                 >
-                  <span>Portfolio</span>
+                  <span>Our Work</span>
                 </button>
 
                 <button
-                  className={`mobile-drawer-link ${activePage === 'industries' ? 'active' : ''}`}
+                  className={`mobile-drawer-link ${currentActive === 'industries' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('industries')}
                 >
                   <span>Industries</span>
                 </button>
 
                 <button
-                  className={`mobile-drawer-link ${activePage === 'blog' ? 'active' : ''}`}
+                  className={`mobile-drawer-link ${currentActive === 'blog' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('blog')}
                 >
                   <span>Blog</span>
                 </button>
 
                 <button
-                  className={`mobile-drawer-link ${activePage === 'smm' ? 'active' : ''}`}
+                  className={`mobile-drawer-link ${currentActive === 'smm' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('smm')}
                 >
                   <span>SMM</span>
                 </button>
 
                 <button
-                  className={`mobile-drawer-link ${activePage === 'contact' ? 'active' : ''}`}
+                  className={`mobile-drawer-link ${currentActive === 'contact' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('contact')}
                 >
                   <span>Contact</span>

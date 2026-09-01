@@ -24,18 +24,18 @@ import { GlobalSearchModal } from './components/GlobalSearchModal';
 import { LocationsModal } from './components/LocationsModal';
 
 // Dedicated Pages
-import { ServicesPage } from './pages/ServicesPage';
-import { SmmPage } from './pages/SmmPage';
-import { IndustriesPage } from './pages/IndustriesPage';
-import { IndustryDetailPage } from './pages/IndustryDetailPage';
-import { PortfolioPage } from './pages/PortfolioPage';
-import { LocationPage } from './pages/LocationPage';
-import { BlogPage } from './pages/BlogPage';
-import { BlogPostPage } from './pages/BlogPostPage';
-import { ServiceDetailPage } from './pages/ServiceDetailPage';
-import { GraphicDetailPage } from './pages/GraphicDetailPage';
-import { GraphicItemDetailPage } from './pages/GraphicItemDetailPage';
-import { LocationsDirectoryPage } from './pages/LocationsDirectoryPage';
+import { ServicesPage } from './views/ServicesPage';
+import { SmmPage } from './views/SmmPage';
+import { IndustriesPage } from './views/IndustriesPage';
+import { IndustryDetailPage } from './views/IndustryDetailPage';
+import { PortfolioPage } from './views/PortfolioPage';
+import { LocationPage } from './views/LocationPage';
+import { BlogPage } from './views/BlogPage';
+import { BlogPostPage } from './views/BlogPostPage';
+import { ServiceDetailPage } from './views/ServiceDetailPage';
+import { GraphicDetailPage } from './views/GraphicDetailPage';
+import { GraphicItemDetailPage } from './views/GraphicItemDetailPage';
+import { LocationsDirectoryPage } from './views/LocationsDirectoryPage';
 
 export const App: React.FC = () => {
   const [activePage, setActivePage] = useState<PageView>('home');
