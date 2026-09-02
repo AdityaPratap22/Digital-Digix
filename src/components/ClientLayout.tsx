@@ -11,6 +11,7 @@ import { StrategyModal } from './StrategyModal';
 import { GlobalSearchModal } from './GlobalSearchModal';
 import { FloatingSocials } from './FloatingSocials';
 import { CursorLightRay } from './CursorLightRay';
+import { ScrollAnimationProvider } from './ScrollAnimationProvider';
 
 export const ClientLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const {
@@ -40,6 +41,9 @@ export const ClientLayout: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <div className="app">
+      {/* Global Scroll Animation Observer */}
+      <ScrollAnimationProvider />
+
       {/* HEADER */}
       <Header
         onNavigate={onNavigate}
