@@ -1,18 +1,12 @@
 'use client';
 
-import React, { use } from 'react';
+import React from 'react';
 import { useApp } from '@/context/AppContext';
 import { LocationPage } from '@/views/LocationPage';
 
-export default function LocationSlugPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const resolvedParams = use(params);
-  const rawSlug = decodeURIComponent(resolvedParams.slug);
-  const cleanLocation = rawSlug
-    .toLowerCase()
+export const LocationClient: React.FC<{ slug: string }> = ({ slug }) => {
+  const decoded = decodeURIComponent(slug).toLowerCase();
+  const cleanLocation = decoded
     .replace(/^digital-marketing-in-/, '')
     .replace(/^digital-marketing-for-/, '')
     .replace(/^digital-marketing-/, '')
@@ -27,4 +21,4 @@ export default function LocationSlugPage({
       onOpenStrategyModal={openStrategyModal}
     />
   );
-}
+};

@@ -1,9 +1,13 @@
 import React from 'react';
-import fs from 'fs';
-import path from 'path';
 import type { Metadata } from 'next';
 import { ALL_BLOGS } from '@/data/blogData';
 import { BlogPostClient } from './BlogPostClient';
+
+export function generateStaticParams() {
+  return ALL_BLOGS.map((b) => ({
+    slug: b.slug,
+  }));
+}
 
 export async function generateMetadata({
   params,
@@ -46,43 +50,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPageContainer({
+export default async function BlogPostRoutePage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug: rawSlug } = await params;
-  const slug = decodeURIComponent(rawSlug);
-  const blog = ALL_BLOGS.find((b) => b.slug === slug || b.slug === rawSlug);
-
-  // Try reading markdown directly from filesystem during server render
-  let initialContent = '';
-  const possiblePaths = [
-    path.join(process.cwd(), 'public', 'blogs', `${slug}.md`),
-    path.join(process.cwd(), 'public', 'blogs', `${rawSlug}.md`),
-    path.join(process.cwd(), 'dist', 'blogs', `${slug}.md`),
-  ];
-
-  for (const filePath of possiblePaths) {
-    if (fs.existsSync(filePath)) {
-      try {
-        const text = fs.readFileSync(filePath, 'utf8');
-        if (text && text.trim().length > 0) {
-          if (blog && text.startsWith('#')) {
-            const firstNewLine = text.indexOf('\n');
-            if (firstNewLine !== -1) {
-              initialContent = `# ${blog.title}\n` + text.substring(firstNewLine + 1);
-            } else {
-              initialContent = text;
-            }
-          } else {
-            initialContent = text;
-          }
-          break;
-        }
-      } catch {}
-    }
-  }
-
-  return <BlogPostClient slug={slug} initialContent={initialContent} />;
+  const { slug } = await params;
+  return <BlogPostClient slug={slug} />;
 }

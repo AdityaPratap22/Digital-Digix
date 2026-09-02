@@ -1,22 +1,26 @@
-'use client';
+import React from 'react';
+import type { Metadata } from 'next';
+import { DesignItemClient } from './DesignItemClient';
 
-import React, { use } from 'react';
-import { useApp } from '@/context/AppContext';
-import { GraphicItemDetailPage } from '@/views/GraphicItemDetailPage';
+export function generateStaticParams() {
+  const params: { slug: string }[] = [];
+  for (let i = 1; i <= 45; i++) {
+    params.push({ slug: `card_${i}` });
+    params.push({ slug: String(i) });
+  }
+  return params;
+}
 
-export default function DesignItemSlugPage({
+export const metadata: Metadata = {
+  title: 'Design Asset Detail & Production Showcase | Digital Digix',
+  description: 'Verified creative asset, packaging mockup, and performance marketing creative sample.',
+};
+
+export default async function DesignItemSlugPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const resolvedParams = use(params);
-  const { onNavigate, openStrategyModal } = useApp();
-
-  return (
-    <GraphicItemDetailPage
-      itemId={resolvedParams.slug}
-      onNavigate={onNavigate}
-      onOpenStrategyModal={openStrategyModal}
-    />
-  );
+  const { slug } = await params;
+  return <DesignItemClient slug={slug} />;
 }

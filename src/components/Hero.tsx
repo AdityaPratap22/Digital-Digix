@@ -23,7 +23,7 @@ export const Hero: React.FC<HeroProps> = ({
             ⚡ FULL-FUNNEL GROWTH & PERFORMANCE AGENCY
           </div>
           <h1 className="hero-title">
-            Being Average Is a <br />
+            Being Average Is a <br className="hero-desktop-br" />
             <span className="text-red">Branding Problem.</span>
           </h1>
           <p className="hero-subtext">

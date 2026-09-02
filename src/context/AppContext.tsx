@@ -70,7 +70,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         router.push('/');
         break;
       case 'about':
-        router.push('/about');
+        router.push(slug ? `/about/${slug}` : '/about');
         break;
       case 'services':
         router.push('/services');
@@ -91,7 +91,19 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         router.push('/industries');
         break;
       case 'industry-detail':
-        router.push(slug ? `/industries/${slug}` : '/industries');
+        if (slug) {
+          const cleanSlug = slug.toLowerCase().replace(/\s+/g, '-');
+          const stripped = cleanSlug
+            .replace(/^marketing-in-/, '')
+            .replace(/^marketing-for-/, '')
+            .replace(/^digital-marketing-for-/, '')
+            .replace(/^digital-marketing-in-/, '')
+            .replace(/^digital-marketing-/, '');
+          const finalSlug = `marketing-in-${stripped}`;
+          router.push(`/industries/${finalSlug}`);
+        } else {
+          router.push('/industries');
+        }
         break;
       case 'portfolio':
         router.push('/portfolio');
@@ -106,7 +118,17 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         router.push('/locations');
         break;
       case 'location':
-        router.push(slug ? `/location/${slug.toLowerCase().replace(/\s+/g, '-')}` : '/locations');
+        if (slug) {
+          const cleanSlug = slug
+            .toLowerCase()
+            .replace(/^digital-marketing-in-/, '')
+            .replace(/^digital-marketing-for-/, '')
+            .replace(/^digital-marketing-/, '')
+            .replace(/\s+/g, '-');
+          router.push(`/digital-marketing/${cleanSlug}`);
+        } else {
+          router.push('/locations');
+        }
         break;
       case 'blog':
         router.push('/blog');

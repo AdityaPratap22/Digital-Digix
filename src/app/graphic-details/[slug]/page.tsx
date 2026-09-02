@@ -1,22 +1,29 @@
-'use client';
+import React from 'react';
+import type { Metadata } from 'next';
+import { GraphicDetailClient } from './GraphicDetailClient';
 
-import React, { use } from 'react';
-import { useApp } from '@/context/AppContext';
-import { GraphicDetailPage } from '@/views/GraphicDetailPage';
+export function generateStaticParams() {
+  return [
+    { slug: 'social-media' },
+    { slug: 'branding-identity' },
+    { slug: 'print-collateral' },
+    { slug: 'packaging-labels' },
+    { slug: 'digital-ads' },
+    { slug: 'illustrations' },
+    { slug: 'all' },
+  ];
+}
 
-export default function GraphicCategorySlugPage({
+export const metadata: Metadata = {
+  title: 'Graphic Design & Creative Production | Digital Digix',
+  description: 'High-conversion visual creatives, brand identity packages, pitch decks, social media templates, and retail packaging design with transparent pricing.',
+};
+
+export default async function GraphicCategorySlugPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const resolvedParams = use(params);
-  const { onNavigate, openStrategyModal } = useApp();
-
-  return (
-    <GraphicDetailPage
-      categoryId={resolvedParams.slug}
-      onNavigate={onNavigate}
-      onOpenStrategyModal={openStrategyModal}
-    />
-  );
+  const { slug } = await params;
+  return <GraphicDetailClient slug={slug} />;
 }

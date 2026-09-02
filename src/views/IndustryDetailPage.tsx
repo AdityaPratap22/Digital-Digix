@@ -21,8 +21,24 @@ export const IndustryDetailPage: React.FC<IndustryDetailPageProps> = ({
     window.scrollTo(0, 0);
   }, [industryId]);
 
+  const rawId = decodeURIComponent(industryId).toLowerCase();
+  const cleanId = rawId
+    .replace(/^marketing-in-/, '')
+    .replace(/^marketing-for-/, '')
+    .replace(/^marketing-/, '')
+    .replace(/^digital-marketing-for-/, '')
+    .replace(/^digital-marketing-in-/, '')
+    .replace(/^digital-marketing-/, '');
+
   const industry = all89IndustriesList.find(
-    (item) => item.id === industryId || item.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === industryId
+    (item) =>
+      item.id === industryId ||
+      item.id === rawId ||
+      item.id === cleanId ||
+      item.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === industryId ||
+      item.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === rawId ||
+      item.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === cleanId ||
+      item.name.toLowerCase().replace(/\s+/g, '-') === cleanId
   );
 
   if (!industry) {

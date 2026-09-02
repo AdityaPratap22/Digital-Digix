@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { useApp } from '@/context/AppContext';
-import { BlogPostPage } from '@/views/BlogPostPage';
+import { GraphicItemDetailPage } from '@/views/GraphicItemDetailPage';
 
-export const BlogPostClient: React.FC<{ slug: string }> = ({ slug }) => {
+export const DesignItemClient: React.FC<{ slug: string }> = ({ slug }) => {
   const { onNavigate, openStrategyModal } = useApp();
 
   return (
-    <BlogPostPage
-      slug={slug}
+    <GraphicItemDetailPage
+      itemId={slug}
       onNavigate={onNavigate}
       onOpenStrategyModal={openStrategyModal}
     />
