@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import type { PageView } from '../types';
 import { ALL_BLOGS } from '../data/blogData';
 
@@ -74,7 +75,13 @@ const CATEGORY_ICONS: Record<string, string> = {
 };
 
 export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenStrategyModal }) => {
+  const router = useRouter();
   const [search, setSearch] = useState('');
+  const [visibleCount, setVisibleCount] = useState(24);
+
+  useEffect(() => {
+    setVisibleCount(24);
+  }, [search]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -113,6 +120,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenStrategyMo
       return aPillar - bPillar;
     });
   }, [search]);
+
+  const visibleBlogs = useMemo(() => {
+    return filtered.slice(0, visibleCount);
+  }, [filtered, visibleCount]);
 
   const getCategoryIcon = (cat: string) => CATEGORY_ICONS[cat] || '◆';
 
@@ -155,7 +166,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenStrategyMo
 
         {/* Results count */}
         <p className="bv-results-count">
-          SHOWING {filtered.length} OF {ALL_BLOGS.length} ARTICLES
+          SHOWING {Math.min(visibleCount, filtered.length)} OF {filtered.length} ARTICLES
           {search ? ' — SEARCH ACTIVE' : ''}
         </p>
       </section>
@@ -163,8 +174,8 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenStrategyMo
       {/* === BLOG GRID (BV Card Style) === */}
       <section className="bv-grid-section">
         <div className="bv-grid">
-          {filtered.length > 0 ? (
-            filtered.map((blog, index) => {
+          {visibleBlogs.length > 0 ? (
+            visibleBlogs.map((blog, index) => {
               const bannerGrad = blog.imageColor || `linear-gradient(135deg, #c0392b 0%, #e67e22 100%)`;
               const catIcon = getCategoryIcon(blog.category);
               return (
@@ -172,6 +183,8 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenStrategyMo
                   key={`${blog.slug}-${index}`}
                   className="bv-card"
                   onClick={() => onNavigate('blog-post', blog.slug)}
+                  onMouseEnter={() => router.prefetch(`/blog/${blog.slug}`)}
+                  onTouchStart={() => router.prefetch(`/blog/${blog.slug}`)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={e => e.key === 'Enter' && onNavigate('blog-post', blog.slug)}
@@ -234,6 +247,34 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenStrategyMo
             </div>
           )}
         </div>
+
+        {/* Load More Button */}
+        {filtered.length > visibleCount && (
+          <div style={{ textAlign: 'center', marginTop: '3.5rem', marginBottom: '1.5rem' }}>
+            <button
+              onClick={() => setVisibleCount(prev => Math.min(prev + 24, filtered.length))}
+              style={{
+                background: 'var(--primary)',
+                color: '#FFFFFF',
+                border: 'none',
+                padding: '0.9rem 2.5rem',
+                borderRadius: '50px',
+                fontSize: '1rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: '0 8px 25px rgba(255, 78, 39, 0.25)',
+                transition: 'all 0.2s ease',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+            >
+              Load More Articles ({filtered.length - visibleCount} more) ↓
+            </button>
+          </div>
+        )}
       </section>
 
       {/* === CTA BANNER === */}

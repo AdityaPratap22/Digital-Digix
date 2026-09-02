@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import type { Currency, PageView } from '../types';
 import type { LeaderPerson } from './LeadershipModal';
 
@@ -30,6 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSearchModal = () => {},
   onOpenLocationsModal = () => {},
 }) => {
+  const router = useRouter();
   const pathname = usePathname() || '/';
 
   const currentActive = useMemo(() => {
@@ -141,6 +142,8 @@ export const Header: React.FC<HeaderProps> = ({
           <nav className="nav-menu desktop-nav-only">
             <button
               onClick={() => onNavigate('home')}
+              onMouseEnter={() => router.prefetch('/')}
+              onTouchStart={() => router.prefetch('/')}
               className={`nav-link-item ${currentActive === 'home' ? 'active' : ''}`}
             >
               Home
@@ -149,7 +152,10 @@ export const Header: React.FC<HeaderProps> = ({
             {/* ABOUT ▾ DROPDOWN MENU */}
             <div
               style={{ position: 'relative' }}
-              onMouseEnter={handleMouseEnterAbout}
+              onMouseEnter={() => {
+                handleMouseEnterAbout();
+                router.prefetch('/about');
+              }}
               onMouseLeave={handleMouseLeaveAbout}
             >
               <button
@@ -157,6 +163,8 @@ export const Header: React.FC<HeaderProps> = ({
                   setIsAboutDropdownOpen(false);
                   onNavigate('about');
                 }}
+                onMouseEnter={() => router.prefetch('/about')}
+                onTouchStart={() => router.prefetch('/about')}
                 className={`nav-link-item ${currentActive === 'about' ? 'active' : ''}`}
                 style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer' }}
                 title="Click to view About Us Page"
@@ -195,6 +203,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setIsAboutDropdownOpen(false);
                         onNavigate('about');
                       }}
+                      onTouchStart={() => router.prefetch('/about')}
                       style={{
                         textAlign: 'left',
                         padding: '0.65rem 1rem',
@@ -204,7 +213,10 @@ export const Header: React.FC<HeaderProps> = ({
                         color: 'var(--text-main)',
                         transition: 'var(--transition)'
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFF1EE')}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#FFF1EE';
+                        router.prefetch('/about');
+                      }}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
                       About Digital Digix
@@ -215,6 +227,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setIsAboutDropdownOpen(false);
                         onNavigate('about', 'harsh-chaudhary');
                       }}
+                      onTouchStart={() => router.prefetch('/about/harsh-chaudhary')}
                       style={{
                         textAlign: 'left',
                         padding: '0.65rem 1rem',
@@ -224,7 +237,10 @@ export const Header: React.FC<HeaderProps> = ({
                         color: '#475569',
                         transition: 'var(--transition)'
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFF1EE')}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#FFF1EE';
+                        router.prefetch('/about/harsh-chaudhary');
+                      }}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
                       Founder — <strong>Harsh Chaudhary</strong>
@@ -235,6 +251,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setIsAboutDropdownOpen(false);
                         onNavigate('about', 'khwahish-sahai');
                       }}
+                      onTouchStart={() => router.prefetch('/about/khwahish-sahai')}
                       style={{
                         textAlign: 'left',
                         padding: '0.65rem 1rem',
@@ -244,7 +261,10 @@ export const Header: React.FC<HeaderProps> = ({
                         color: '#475569',
                         transition: 'var(--transition)'
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFF1EE')}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#FFF1EE';
+                        router.prefetch('/about/khwahish-sahai');
+                      }}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
                       Co-Founder — <strong>Khwahish Sahai</strong>
@@ -255,6 +275,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setIsAboutDropdownOpen(false);
                         onNavigate('about', 'why-choose-us');
                       }}
+                      onTouchStart={() => router.prefetch('/about/why-choose-us')}
                       style={{
                         textAlign: 'left',
                         padding: '0.65rem 1rem',
@@ -264,7 +285,10 @@ export const Header: React.FC<HeaderProps> = ({
                         color: '#475569',
                         transition: 'var(--transition)'
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFF1EE')}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#FFF1EE';
+                        router.prefetch('/about/why-choose-us');
+                      }}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
                       Why Digital Digix
@@ -275,6 +299,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setIsAboutDropdownOpen(false);
                         onNavigate('about', 'team');
                       }}
+                      onTouchStart={() => router.prefetch('/about/team')}
                       style={{
                         textAlign: 'left',
                         padding: '0.65rem 1rem',
@@ -284,7 +309,10 @@ export const Header: React.FC<HeaderProps> = ({
                         color: '#475569',
                         transition: 'var(--transition)'
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFF1EE')}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#FFF1EE';
+                        router.prefetch('/about/team');
+                      }}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
                       Our Team
@@ -296,6 +324,8 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('services')}
+              onMouseEnter={() => router.prefetch('/services')}
+              onTouchStart={() => router.prefetch('/services')}
               className={`nav-link-item ${currentActive === 'services' ? 'active' : ''}`}
             >
               Services
@@ -303,6 +333,8 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('industries')}
+              onMouseEnter={() => router.prefetch('/industries')}
+              onTouchStart={() => router.prefetch('/industries')}
               className={`nav-link-item ${currentActive === 'industries' ? 'active' : ''}`}
             >
               Industries
@@ -310,6 +342,8 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('portfolio')}
+              onMouseEnter={() => router.prefetch('/portfolio')}
+              onTouchStart={() => router.prefetch('/portfolio')}
               className={`nav-link-item ${currentActive === 'portfolio' ? 'active' : ''}`}
             >
               Our Work
@@ -317,6 +351,8 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('blog')}
+              onMouseEnter={() => router.prefetch('/blog')}
+              onTouchStart={() => router.prefetch('/blog')}
               className={`nav-link-item ${currentActive === 'blog' ? 'active' : ''}`}
             >
               Blog
@@ -324,6 +360,8 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('smm')}
+              onMouseEnter={() => router.prefetch('/smm')}
+              onTouchStart={() => router.prefetch('/smm')}
               className={`nav-link-item ${currentActive === 'smm' ? 'active' : ''}`}
             >
               SMM
@@ -331,6 +369,8 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('payments')}
+              onMouseEnter={() => router.prefetch('/payments')}
+              onTouchStart={() => router.prefetch('/payments')}
               className={`nav-link-item ${currentActive === 'payments' ? 'active' : ''}`}
             >
               Payments
@@ -338,6 +378,8 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('contact')}
+              onMouseEnter={() => router.prefetch('/contact')}
+              onTouchStart={() => router.prefetch('/contact')}
               className={`nav-link-item ${currentActive === 'contact' ? 'active' : ''}`}
             >
               Contact
@@ -386,6 +428,8 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   className={`mobile-drawer-link ${currentActive === 'home' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('home')}
+                  onTouchStart={() => router.prefetch('/')}
+                  onMouseEnter={() => router.prefetch('/')}
                 >
                   <span>Home</span>
                 </button>
@@ -396,6 +440,8 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={() => {
                       setIsAboutDropdownOpen(!isAboutDropdownOpen);
                     }}
+                    onTouchStart={() => router.prefetch('/about')}
+                    onMouseEnter={() => router.prefetch('/about')}
                     style={{ justifyContent: 'space-between' }}
                   >
                     <span>About</span>
@@ -404,11 +450,11 @@ export const Header: React.FC<HeaderProps> = ({
 
                   {isAboutDropdownOpen && (
                     <div className="mobile-drawer-sublinks">
-                      <button onClick={() => handleMobileNav('about')}>About Digital Digix</button>
-                      <button onClick={() => { setIsMobileMenuOpen(false); onNavigate('about', 'harsh-chaudhary'); }}>Founder — Harsh Chaudhary</button>
-                      <button onClick={() => { setIsMobileMenuOpen(false); onNavigate('about', 'khwahish-sahai'); }}>Co-Founder — Khwahish Sahai</button>
-                      <button onClick={() => { setIsMobileMenuOpen(false); onNavigate('about', 'why-choose-us'); }}>Why Digital Digix</button>
-                      <button onClick={() => { setIsMobileMenuOpen(false); onNavigate('about', 'team'); }}>Our Team</button>
+                      <button onClick={() => handleMobileNav('about')} onTouchStart={() => router.prefetch('/about')}>About Digital Digix</button>
+                      <button onClick={() => { setIsMobileMenuOpen(false); onNavigate('about', 'harsh-chaudhary'); }} onTouchStart={() => router.prefetch('/about/harsh-chaudhary')}>Founder — Harsh Chaudhary</button>
+                      <button onClick={() => { setIsMobileMenuOpen(false); onNavigate('about', 'khwahish-sahai'); }} onTouchStart={() => router.prefetch('/about/khwahish-sahai')}>Co-Founder — Khwahish Sahai</button>
+                      <button onClick={() => { setIsMobileMenuOpen(false); onNavigate('about', 'why-choose-us'); }} onTouchStart={() => router.prefetch('/about/why-choose-us')}>Why Digital Digix</button>
+                      <button onClick={() => { setIsMobileMenuOpen(false); onNavigate('about', 'team'); }} onTouchStart={() => router.prefetch('/about/team')}>Our Team</button>
                     </div>
                   )}
                 </div>
@@ -416,6 +462,8 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   className={`mobile-drawer-link ${currentActive === 'services' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('services')}
+                  onTouchStart={() => router.prefetch('/services')}
+                  onMouseEnter={() => router.prefetch('/services')}
                 >
                   <span>Services</span>
                 </button>
@@ -423,6 +471,8 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   className={`mobile-drawer-link ${currentActive === 'portfolio' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('portfolio')}
+                  onTouchStart={() => router.prefetch('/portfolio')}
+                  onMouseEnter={() => router.prefetch('/portfolio')}
                 >
                   <span>Our Work</span>
                 </button>
@@ -430,6 +480,8 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   className={`mobile-drawer-link ${currentActive === 'industries' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('industries')}
+                  onTouchStart={() => router.prefetch('/industries')}
+                  onMouseEnter={() => router.prefetch('/industries')}
                 >
                   <span>Industries</span>
                 </button>
@@ -437,6 +489,8 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   className={`mobile-drawer-link ${currentActive === 'blog' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('blog')}
+                  onTouchStart={() => router.prefetch('/blog')}
+                  onMouseEnter={() => router.prefetch('/blog')}
                 >
                   <span>Blog</span>
                 </button>
@@ -444,6 +498,8 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   className={`mobile-drawer-link ${currentActive === 'smm' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('smm')}
+                  onTouchStart={() => router.prefetch('/smm')}
+                  onMouseEnter={() => router.prefetch('/smm')}
                 >
                   <span>SMM</span>
                 </button>
@@ -451,6 +507,8 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   className={`mobile-drawer-link ${currentActive === 'payments' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('payments')}
+                  onTouchStart={() => router.prefetch('/payments')}
+                  onMouseEnter={() => router.prefetch('/payments')}
                 >
                   <span>Payments</span>
                 </button>
@@ -458,6 +516,8 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   className={`mobile-drawer-link ${currentActive === 'contact' ? 'active' : ''}`}
                   onClick={() => handleMobileNav('contact')}
+                  onTouchStart={() => router.prefetch('/contact')}
+                  onMouseEnter={() => router.prefetch('/contact')}
                 >
                   <span>Contact</span>
                 </button>

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import type { PageView } from '../types';
 import { TOP_FOOTER_INTERNATIONAL_LOCATIONS } from '../data/locationsData';
 
@@ -14,6 +15,8 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectLocation, onOpenLocationsModal: _onOpenLocationsModal }) => {
+  const router = useRouter();
+
   const handleLocationClick = (loc: string) => {
     if (onSelectLocation) {
       onSelectLocation(loc);
@@ -57,25 +60,25 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectLocation, on
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#FFF', marginBottom: '1.25rem' }}>Navigation</h4>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.875rem', color: '#94A3B8' }}>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('home')}>Home</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('about')}>About Us</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('portfolio')}>Our Work</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('blog')}>Blog Articles</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('smm')}>Social Growth (SMM)</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('payments')}>Payments & Invoicing</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('contact')}>Contact Us</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('home')} onMouseEnter={() => router.prefetch('/')}>Home</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('about')} onMouseEnter={() => router.prefetch('/about')}>About Us</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('portfolio')} onMouseEnter={() => router.prefetch('/portfolio')}>Our Work</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('blog')} onMouseEnter={() => router.prefetch('/blog')}>Blog Articles</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('smm')} onMouseEnter={() => router.prefetch('/smm')}>Social Growth (SMM)</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('payments')} onMouseEnter={() => router.prefetch('/payments')}>Payments & Invoicing</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('contact')} onMouseEnter={() => router.prefetch('/contact')}>Contact Us</li>
             </ul>
           </div>
 
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#FFF', marginBottom: '1.25rem' }}>Services</h4>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.875rem', color: '#94A3B8' }}>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('graphic-details')}>Graphic Design</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('smm')}>Social Media Marketing</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'website-development')}>Website Development</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'personal-branding')}>Personal Branding</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'seo-services')}>SEO Services</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'dashboard-kpi-systems')}>Dashboard & KPI Systems</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('graphic-details')} onMouseEnter={() => router.prefetch('/graphic-details')}>Graphic Design</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('smm')} onMouseEnter={() => router.prefetch('/smm')}>Social Media Marketing</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'website-development')} onMouseEnter={() => router.prefetch('/services/website-development')}>Website Development</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'personal-branding')} onMouseEnter={() => router.prefetch('/services/personal-branding')}>Personal Branding</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'seo-services')} onMouseEnter={() => router.prefetch('/services/seo-services')}>SEO Services</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'dashboard-kpi-systems')} onMouseEnter={() => router.prefetch('/services/dashboard-kpi-systems')}>Dashboard & KPI Systems</li>
             </ul>
           </div>
 

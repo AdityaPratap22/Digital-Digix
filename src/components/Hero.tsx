@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import type { StatType } from './StatCardModal';
 
 interface HeroProps {
@@ -20,7 +21,7 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="container hero-grid">
         <div className="hero-content">
           <div className="hero-tag">
-            ⚡ FULL-FUNNEL GROWTH & PERFORMANCE AGENCY
+            ⚡ FULL-FUNNEL GROWTH &amp; PERFORMANCE AGENCY
           </div>
           <h1 className="hero-title">
             Being Average Is a <br className="hero-desktop-br" />
@@ -39,16 +40,17 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
         </div>
 
-        {/* Hero Building Visual Container matching Image 1 & Image 2 exactly */}
+        {/* Hero Building Visual Container */}
         <div className="hero-building-wrapper">
-          <img
+          <Image
             src="/building.jpg"
-            alt="Digital Digix Headquarters Facade"
+            alt="Digital Digix — Performance Marketing Agency Headquarters"
             className="hero-building-img"
+            priority
             fetchPriority="high"
-            decoding="async"
-            width="540"
-            height="400"
+            width={540}
+            height={400}
+            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
           />
 
           {/* Floating Stat Card 1: Revenue (Clickable Pop-Up) */}
@@ -57,6 +59,10 @@ export const Hero: React.FC<HeroProps> = ({
             onClick={() => onOpenStatModal('revenue')}
             style={{ cursor: 'pointer' }}
             title="Click to view Revenue Breakdown"
+            role="button"
+            aria-label="View Revenue Breakdown"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && onOpenStatModal('revenue')}
           >
             <div className="hero-stat-icon-box">📈</div>
             <div>
@@ -72,6 +78,10 @@ export const Hero: React.FC<HeroProps> = ({
             onClick={() => onOpenStatModal('clicks')}
             style={{ cursor: 'pointer' }}
             title="Click to view Click Analytics"
+            role="button"
+            aria-label="View Click Analytics"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && onOpenStatModal('clicks')}
           >
             <div className="hero-stat-icon-box">⚡</div>
             <div>
@@ -87,6 +97,10 @@ export const Hero: React.FC<HeroProps> = ({
             onClick={() => onOpenStatModal('conversions')}
             style={{ cursor: 'pointer' }}
             title="Click to view Conversion Rates"
+            role="button"
+            aria-label="View Conversion Rates"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && onOpenStatModal('conversions')}
           >
             <div className="hero-stat-icon-box">🎯</div>
             <div>

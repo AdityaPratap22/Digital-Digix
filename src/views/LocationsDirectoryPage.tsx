@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import type { PageView } from '../types';
 import { ALL_COUNTRY_LOCATIONS, TOP_FOOTER_INTERNATIONAL_LOCATIONS } from '../data/locationsData';
 import { WorkShowcaseMarquee } from '../components/WorkShowcaseMarquee';
@@ -11,12 +12,15 @@ interface LocationsDirectoryPageProps {
 }
 
 export const LocationsDirectoryPage: React.FC<LocationsDirectoryPageProps> = ({ onNavigate, onSelectLocation }) => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeTab, setActiveTab] = useState<string>('All');
 
   const handleLocationClick = (loc: string) => {
     onSelectLocation(loc);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
   };
 
   const regions = ['All', 'Europe', 'North America', 'Middle East', 'Latin America & Caribbean', 'Pacific & Africa'];

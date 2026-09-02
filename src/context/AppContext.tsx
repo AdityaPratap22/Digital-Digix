@@ -30,9 +30,93 @@ interface AppContextType {
   
   // Universal Navigation
   onNavigate: (page: PageView, slug?: string) => void;
+  prefetchRoute: (url: string) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
+
+// ─── All routes to prefetch, in priority order ───────────────────────────────
+const WAVE_1_ROUTES = [
+  '/',
+  '/about',
+  '/services',
+  '/blog',
+  '/industries',
+  '/portfolio',
+  '/contact',
+  '/locations',
+  '/digital-marketing',
+  '/smm',
+  '/payments',
+];
+
+const WAVE_2_ROUTES = [
+  '/about/harsh-chaudhary',
+  '/about/khwahish-sahai',
+  '/about/why-choose-us',
+  '/about/team',
+  '/services/social-media-marketing',
+  '/services/seo-services',
+  '/services/performance-marketing',
+  '/services/website-development',
+  '/services/graphic-design',
+  '/services/content-marketing',
+  '/services/lead-generation',
+  '/services/email-marketing',
+  '/services/whatsapp-marketing',
+  '/services/ecommerce-growth',
+  '/services/influencer-marketing',
+  '/services/personal-branding',
+  '/services/video-editing-production',
+  '/services/brand-strategy',
+  '/services/dashboard-kpi-systems',
+  '/services/app-store-optimization',
+  '/services/analytics-tracking',
+];
+
+const WAVE_3_ROUTES = [
+  // Top industry pages
+  '/industries/marketing-in-hospitals',
+  '/industries/marketing-in-clinics',
+  '/industries/marketing-in-real-estate',
+  '/industries/marketing-in-restaurants',
+  '/industries/marketing-in-ecommerce',
+  '/industries/marketing-in-education',
+  '/industries/marketing-in-law-firms',
+  '/industries/marketing-in-hotels',
+  '/industries/marketing-in-fashion',
+  '/industries/marketing-in-fitness',
+  '/industries/marketing-in-dental-clinics',
+  '/industries/marketing-in-automobile-dealers',
+  '/industries/marketing-in-startups',
+  '/industries/marketing-in-it-companies',
+  '/industries/marketing-in-insurance',
+  // Top location pages
+  '/digital-marketing/united-kingdom',
+  '/digital-marketing/united-states',
+  '/digital-marketing/dubai',
+  '/digital-marketing/france',
+  '/digital-marketing/germany',
+  '/digital-marketing/singapore',
+  '/digital-marketing/australia',
+  '/digital-marketing/canada',
+  '/digital-marketing/london',
+  '/digital-marketing/new-york',
+  '/digital-marketing/paris',
+  '/digital-marketing/berlin',
+  '/digital-marketing/toronto',
+  '/digital-marketing/sydney',
+];
+
+// ─── Staggered prefetch scheduler ─────────────────────────────────────────────
+function scheduleWave(routes: string[], prefetch: (r: string) => void, delayMs: number) {
+  setTimeout(() => {
+    // Spread each route 40ms apart within the wave to avoid burst network pressure
+    routes.forEach((r, i) => {
+      setTimeout(() => prefetch(r), i * 40);
+    });
+  }, delayMs);
+}
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
@@ -45,6 +129,33 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [strategyModalNote, setStrategyModalNote] = useState<string>('');
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isLocationsModalOpen, setIsLocationsModalOpen] = useState(false);
+
+  // ─── Multi-wave aggressive route preloading ──────────────────────────────
+  useEffect(() => {
+    const prefetch = (r: string) => { try { router.prefetch(r); } catch (_) {} };
+
+    // Wave 1: Core nav routes — fire as soon as the browser has a free moment
+    const runWaves = () => {
+      // Wave 1 — immediately on idle (or after 100ms fallback)
+      WAVE_1_ROUTES.forEach((r, i) => setTimeout(() => prefetch(r), i * 30));
+
+      // Wave 2 — service + about sub-pages, start after 1.5s
+      scheduleWave(WAVE_2_ROUTES, prefetch, 1500);
+
+      // Wave 3 — top industry + location pages, start after 4s
+      scheduleWave(WAVE_3_ROUTES, prefetch, 4000);
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(runWaves, { timeout: 200 });
+    } else {
+      setTimeout(runWaves, 100);
+    }
+  }, [router]);
+
+  const prefetchRoute = (url: string) => {
+    try { router.prefetch(url); } catch (_) {}
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -65,6 +176,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   const onNavigate = (page: PageView, slug?: string) => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+
     switch (page) {
       case 'home':
         router.push('/');
@@ -164,6 +279,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         isLocationsModalOpen,
         setIsLocationsModalOpen,
         onNavigate,
+        prefetchRoute,
       }}
     >
       {children}

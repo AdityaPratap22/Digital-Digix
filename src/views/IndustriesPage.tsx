@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { IndustryItem, industryCategories, all89IndustriesList } from '../data/industriesData';
 export { type IndustryItem, industryCategories, all89IndustriesList };
@@ -11,6 +12,7 @@ interface IndustriesPageProps {
 }
 
 export const IndustriesPage: React.FC<IndustriesPageProps> = ({ onNavigate, onOpenStrategyModal: _onOpenStrategyModal }) => {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -128,6 +130,13 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({ onNavigate, onOp
             <div
               key={item.id}
               onClick={() => onNavigate('industry-detail', item.id)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.borderColor = '#FDE68A';
+                router.prefetch(`/industries/marketing-in-${item.id}`);
+              }}
+              onTouchStart={() => router.prefetch(`/industries/marketing-in-${item.id}`)}
               style={{
                 backgroundColor: '#FFFFFF',
                 borderRadius: '20px',
@@ -139,11 +148,6 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({ onNavigate, onOp
                 flexDirection: 'column',
                 cursor: 'pointer',
                 transition: 'transform 0.25s ease, boxShadow 0.25s ease, borderColor 0.25s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
-                e.currentTarget.style.borderColor = '#FDE68A';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';

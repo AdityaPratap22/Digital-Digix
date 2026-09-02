@@ -8,6 +8,54 @@ export interface CountryLocationData {
   regionalCities: string[];
 }
 
+/**
+ * Ensures country and location names have their first letters capitalized properly.
+ * Looks up canonical capitalization from ALL_COUNTRY_LOCATIONS, or capitalizes each word's first letter.
+ */
+export function formatLocationName(raw: string): string {
+  if (!raw) return '';
+  const clean = decodeURIComponent(raw)
+    .replace(/^digital-marketing-in-/, '')
+    .replace(/^digital-marketing-for-/, '')
+    .replace(/^digital-marketing-/, '')
+    .replace(/-/g, ' ')
+    .trim();
+
+  // Try to find exact match in ALL_COUNTRY_LOCATIONS
+  const countryObj = ALL_COUNTRY_LOCATIONS.find(c => 
+    c.country.toLowerCase() === clean.toLowerCase() ||
+    c.capital.toLowerCase() === clean.toLowerCase() ||
+    c.majorCities.some(city => city.toLowerCase() === clean.toLowerCase()) ||
+    c.regionalCities.some(city => city.toLowerCase() === clean.toLowerCase())
+  );
+
+  let result = clean;
+
+  if (countryObj) {
+    if (countryObj.country.toLowerCase() === clean.toLowerCase()) {
+      result = countryObj.country;
+    } else if (countryObj.capital.toLowerCase() === clean.toLowerCase()) {
+      result = countryObj.capital;
+    } else {
+      const matchedCity = [...countryObj.majorCities, ...countryObj.regionalCities].find(
+        city => city.toLowerCase() === clean.toLowerCase()
+      );
+      if (matchedCity) result = matchedCity;
+    }
+  } else {
+    const matchedFooter = TOP_FOOTER_INTERNATIONAL_LOCATIONS.find(
+      loc => loc.toLowerCase() === clean.toLowerCase()
+    );
+    if (matchedFooter) result = matchedFooter;
+  }
+
+  // Capitalize the first letter of each word
+  return result
+    .split(/\s+/)
+    .map(word => (word ? word.charAt(0).toUpperCase() + word.slice(1) : ''))
+    .join(' ');
+}
+
 export const TOP_FOOTER_INTERNATIONAL_LOCATIONS = [
   'United States', 'United Kingdom', 'Germany', 'France', 'Switzerland', 'Netherlands',
   'Spain', 'Italy', 'Kuwait', 'Bahrain', 'Oman', 'Jordan', 'Ireland', 'Austria',
@@ -22,7 +70,7 @@ export const REGIONAL_FOOTER_LOCATIONS = [
   },
   {
     title: '🏰 Western & Northern Europe',
-    locations: ['United Kingdom', 'Germany', 'France', 'Italy', 'Spain', 'Netherlands', 'Switzerland', 'Ireland', 'Austria', 'Belgium', 'Portugal', 'Finland', 'Greece', 'Luxembourg', 'Malta', 'Cyprus', 'Monaco', 'Liechtenstein', 'Andorra', 'San Marino', 'Isle of Man', 'Jersey', 'Guernsey', 'Gibraltar']
+    locations: ['United Kingdom', 'Germany', 'France', 'Italy', 'Spain', 'Netherlands', 'Switzerland', 'Ireland', 'Austria', 'Belgium', 'Portugal', 'Finland', 'Greece', 'Luxembourg', 'Malta', 'Cyprus', 'Monaco', 'Liechtenstein', 'Andorra', 'San Marino', 'Isle Of Man', 'Jersey', 'Guernsey', 'Gibraltar']
   },
   {
     title: '🌴 Middle East & Gulf Economies',
@@ -30,7 +78,7 @@ export const REGIONAL_FOOTER_LOCATIONS = [
   },
   {
     title: '🌎 Americas & High-Value Dollar Markets',
-    locations: ['United States', 'Puerto Rico', 'Ecuador', 'El Salvador', 'Panama', 'Bahamas', 'Bermuda', 'Cayman Islands', 'British Virgin Islands', 'Turks and Caicos Islands', 'United States Virgin Islands', 'Caribbean Netherlands']
+    locations: ['United States', 'Puerto Rico', 'Ecuador', 'El Salvador', 'Panama', 'Bahamas', 'Bermuda', 'Cayman Islands', 'British Virgin Islands', 'Turks And Caicos Islands', 'United States Virgin Islands', 'Caribbean Netherlands']
   },
   {
     title: '🌐 Central & Eastern Europe',
@@ -38,7 +86,7 @@ export const REGIONAL_FOOTER_LOCATIONS = [
   },
   {
     title: '🌊 Pacific, French Collectivities & Global Hubs',
-    locations: ['Guam', 'Northern Mariana Islands', 'American Samoa', 'Marshall Islands', 'Micronesia', 'Palau', 'Timor-Leste', 'Zimbabwe', 'Reunion', 'Guadeloupe', 'Martinique', 'French Guiana', 'Mayotte', 'Saint Martin', 'Saint Barthelemy', 'Saint Pierre and Miquelon', 'Falkland Islands', 'Saint Helena']
+    locations: ['Guam', 'Northern Mariana Islands', 'American Samoa', 'Marshall Islands', 'Micronesia', 'Palau', 'Timor-Leste', 'Zimbabwe', 'Reunion', 'Guadeloupe', 'Martinique', 'French Guiana', 'Mayotte', 'Saint Martin', 'Saint Barthelemy', 'Saint Pierre And Miquelon', 'Falkland Islands', 'Saint Helena']
   }
 ];
 
@@ -1002,7 +1050,7 @@ export const ALL_COUNTRY_LOCATIONS: CountryLocationData[] = [
     "regionalCities": []
   },
   {
-    "country": "Isle of Man",
+    "country": "Isle Of Man",
     "capital": "Douglas",
     "currency": "Manx Pound (IMP)",
     "currencyCode": "IMP",
@@ -1703,7 +1751,7 @@ export const ALL_COUNTRY_LOCATIONS: CountryLocationData[] = [
     ]
   },
   {
-    "country": "Turks and Caicos Islands",
+    "country": "Turks And Caicos Islands",
     "capital": "Cockburn Town",
     "currency": "United States Dollar (USD)",
     "currencyCode": "USD",
@@ -1856,7 +1904,7 @@ export const ALL_COUNTRY_LOCATIONS: CountryLocationData[] = [
     ]
   },
   {
-    "country": "Saint Pierre and Miquelon",
+    "country": "Saint Pierre And Miquelon",
     "capital": "Saint-Pierre",
     "currency": "Euro (EUR)",
     "currencyCode": "EUR",

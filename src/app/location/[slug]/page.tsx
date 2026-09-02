@@ -3,6 +3,7 @@
 import React, { use } from 'react';
 import { useApp } from '@/context/AppContext';
 import { LocationPage } from '@/views/LocationPage';
+import { formatLocationName } from '@/data/locationsData';
 
 export default function LocationSlugPage({
   params,
@@ -10,19 +11,12 @@ export default function LocationSlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = use(params);
-  const rawSlug = decodeURIComponent(resolvedParams.slug);
-  const cleanLocation = rawSlug
-    .toLowerCase()
-    .replace(/^digital-marketing-in-/, '')
-    .replace(/^digital-marketing-for-/, '')
-    .replace(/^digital-marketing-/, '')
-    .replace(/-/g, ' ');
-
+  const locationName = formatLocationName(resolvedParams.slug);
   const { onNavigate, openStrategyModal } = useApp();
 
   return (
     <LocationPage
-      locationName={cleanLocation}
+      locationName={locationName}
       onNavigate={onNavigate}
       onOpenStrategyModal={openStrategyModal}
     />

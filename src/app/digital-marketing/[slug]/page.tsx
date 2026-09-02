@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { ALL_COUNTRY_LOCATIONS } from '@/data/locationsData';
+import { ALL_COUNTRY_LOCATIONS, formatLocationName } from '@/data/locationsData';
 import { LocationClient } from './LocationClient';
 
 export function generateStaticParams() {
@@ -20,20 +20,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug: rawSlug } = await params;
-  const decoded = decodeURIComponent(rawSlug).toLowerCase();
-  const cleanLocation = decoded
-    .replace(/^digital-marketing-in-/, '')
-    .replace(/^digital-marketing-for-/, '')
-    .replace(/^digital-marketing-/, '')
-    .replace(/-/g, ' ');
+  const titleLocation = formatLocationName(rawSlug);
 
-  const titleLocation = cleanLocation
-    .split(' ')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ');
-
-  const title = `Digital Marketing in ${titleLocation} | Top Agency & Performance Growth | Digital Digix`;
+  const title = `Digital Marketing in ${titleLocation} — Top Performance Agency`;
   const description = `Scale your business in ${titleLocation} with Digital Digix. Performance marketing, SEO, Meta & Google Ads, Social Media retainers, and custom web development with zero lock-in contracts.`;
+  const canonicalUrl = `https://digitaldigix.com/digital-marketing/${rawSlug}`;
 
   return {
     title,
@@ -43,13 +34,32 @@ export async function generateMetadata({
       `SEO Agency ${titleLocation}`,
       `Social Media Marketing ${titleLocation}`,
       `Performance Marketing ${titleLocation}`,
-      `Web Development ${titleLocation}`
+      `Web Development ${titleLocation}`,
+      `Google Ads ${titleLocation}`,
     ],
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title,
       description,
-      url: `https://digitaldigix.com/digital-marketing/${rawSlug}`,
+      url: canonicalUrl,
       siteName: 'Digital Digix',
+      type: 'website',
+      images: [
+        {
+          url: 'https://digitaldigix.com/digital_digix_logo.png',
+          width: 800,
+          height: 600,
+          alt: `Digital Digix — ${titleLocation}`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['https://digitaldigix.com/digital_digix_logo.png'],
     },
   };
 }
@@ -59,6 +69,36 @@ export default async function DigitalMarketingLocationRoutePage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  return <LocationClient slug={slug} />;
+  const { slug: rawSlug } = await params;
+  const titleLocation = formatLocationName(rawSlug);
+
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: `Digital Digix — Digital Marketing in ${titleLocation}`,
+    description: `Top-rated digital marketing agency serving ${titleLocation}. Performance marketing, SEO, Social Media, and web development.`,
+    url: `https://digitaldigix.com/digital-marketing/${rawSlug}`,
+    telephone: '+918586989832',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Sector 62',
+      addressLocality: 'Noida',
+      addressRegion: 'Uttar Pradesh',
+      postalCode: '201309',
+      addressCountry: 'IN',
+    },
+    areaServed: titleLocation,
+    priceRange: '$$',
+    openingHours: 'Mo-Sa 09:00-19:00',
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <LocationClient slug={rawSlug} />
+    </>
+  );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ALL_COUNTRY_LOCATIONS } from '../data/locationsData';
+import { ALL_COUNTRY_LOCATIONS, formatLocationName } from '../data/locationsData';
 import { WorkShowcaseMarquee } from '../components/WorkShowcaseMarquee';
 
 interface LocationPageProps {
@@ -10,7 +10,8 @@ interface LocationPageProps {
   onOpenStrategyModal: (note?: string) => void;
 }
 
-export const LocationPage: React.FC<LocationPageProps> = ({ locationName, onNavigate, onOpenStrategyModal }) => {
+export const LocationPage: React.FC<LocationPageProps> = ({ locationName: rawLocationName, onNavigate, onOpenStrategyModal }) => {
+  const locationName = formatLocationName(rawLocationName);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   // Find country matching locationName directly or by city
@@ -21,7 +22,7 @@ export const LocationPage: React.FC<LocationPageProps> = ({ locationName, onNavi
     c.regionalCities.some(city => city.toLowerCase() === locationName.toLowerCase())
   );
 
-  const parentCountry = countryObj ? countryObj.country : 'International Market';
+  const parentCountry = countryObj ? formatLocationName(countryObj.country) : 'International Market';
   const currencyInfo = countryObj ? countryObj.currency : 'USD ($)';
   const regionInfo = countryObj ? countryObj.region : 'Global Markets';
 
@@ -69,8 +70,8 @@ export const LocationPage: React.FC<LocationPageProps> = ({ locationName, onNavi
         <div className="responsive-hero-card" style={{ background: '#FFFFFF', borderTop: '4px solid #FF4E27', borderLeft: '1px solid #E2E8F0', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', borderRadius: '24px', padding: '3.5rem 3rem', marginBottom: '4rem', boxShadow: '0 15px 35px rgba(11,19,42,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
             <span style={{ width: '30px', height: '1px', background: '#3B82F6' }}></span>
-            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#3B82F6', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              {regionInfo} · {parentCountry.toUpperCase()}
+            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#3B82F6', letterSpacing: '0.12em' }}>
+              {regionInfo} · {parentCountry}
             </span>
             {countryObj && (
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#D97706', backgroundColor: 'rgba(217, 119, 6, 0.1)', padding: '0.2rem 0.6rem', borderRadius: '999px' }}>
@@ -358,7 +359,7 @@ export const LocationPage: React.FC<LocationPageProps> = ({ locationName, onNavi
 
       </div>
 
-      <WorkShowcaseMarquee />
+      <WorkShowcaseMarquee locationName={locationName} />
 
       {/* 8. BOTTOM WHATSAPP CTA BOX */}
       <div className="container" style={{ maxWidth: '1100px' }}>
