@@ -40,6 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
     if (pathname.startsWith('/portfolio')) return 'portfolio';
     if (pathname.startsWith('/blog')) return 'blog';
     if (pathname.startsWith('/smm')) return 'smm';
+    if (pathname.startsWith('/payments')) return 'payments';
     if (pathname.startsWith('/contact')) return 'contact';
     if (pathname.startsWith('/location')) return 'location';
     return activePage || 'home';
@@ -304,6 +305,13 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <button
+              onClick={() => onNavigate('payments')}
+              className={`nav-link-item ${currentActive === 'payments' ? 'active' : ''}`}
+            >
+              Payments
+            </button>
+
+            <button
               onClick={() => onNavigate('contact')}
               className={`nav-link-item ${currentActive === 'contact' ? 'active' : ''}`}
             >
@@ -413,6 +421,13 @@ export const Header: React.FC<HeaderProps> = ({
                   onClick={() => handleMobileNav('smm')}
                 >
                   <span>SMM</span>
+                </button>
+
+                <button
+                  className={`mobile-drawer-link ${currentActive === 'payments' ? 'active' : ''}`}
+                  onClick={() => handleMobileNav('payments')}
+                >
+                  <span>Payments</span>
                 </button>
 
                 <button

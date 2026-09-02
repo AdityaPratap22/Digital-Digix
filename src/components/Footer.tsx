@@ -62,6 +62,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectLocation, on
               <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('portfolio')}>Our Work</li>
               <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('blog')}>Blog Articles</li>
               <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('smm')}>Social Growth (SMM)</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('payments')}>Payments & Invoicing</li>
               <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('contact')}>Contact Us</li>
             </ul>
           </div>

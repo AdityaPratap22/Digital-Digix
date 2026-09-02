@@ -99,6 +99,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       case 'contact':
         router.push('/contact');
         break;
+      case 'payments':
+        router.push('/payments');
+        break;
       case 'all-locations':
         router.push('/locations');
         break;
