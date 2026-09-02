@@ -1,13 +1,17 @@
+# Next.js build outputs
+.next/
+out/
+
 # Dependencies
 node_modules/
 .pnp
 .pnp.js
+.yarn/install-state.gz
 
 # Production build outputs
 dist/
 dist-ssr/
 build/
-out/
 
 # Logs
 npm-debug.log*
@@ -15,6 +19,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.pnpm-debug.log*
 *.log
 
 # Environment variables & local secrets
@@ -59,3 +64,6 @@ tmp/
 *.tmp
 *.bak
 *.backup
+
+# Next.js TypeScript declarations
+next-env.d.ts

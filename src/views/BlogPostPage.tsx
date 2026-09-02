@@ -7,19 +7,26 @@ import { ALL_BLOGS } from '../data/blogData';
 
 interface BlogPostPageProps {
   slug: string;
+  initialContent?: string;
   onNavigate: (page: PageView, slug?: string) => void;
   onOpenStrategyModal: (note?: string) => void;
 }
 
-export const BlogPostPage: React.FC<BlogPostPageProps> = ({ slug: rawSlug, onNavigate, onOpenStrategyModal }) => {
+export const BlogPostPage: React.FC<BlogPostPageProps> = ({ slug: rawSlug, initialContent, onNavigate, onOpenStrategyModal }) => {
   const slug = decodeURIComponent(rawSlug);
-  const [content, setContent] = useState<string>('');
-  const [loading, setLoading] = useState(true);
+  const [content, setContent] = useState<string>(initialContent || '');
+  const [loading, setLoading] = useState(!initialContent);
   const [error, setError] = useState(false);
 
   const blog = ALL_BLOGS.find(b => b.slug === slug || b.slug === rawSlug);
 
   useEffect(() => {
+    if (initialContent) {
+      setContent(initialContent);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(false);
 
