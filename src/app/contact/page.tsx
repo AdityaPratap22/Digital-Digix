@@ -4,13 +4,12 @@ import { ContactSection } from '@/components/ContactSection';
 
 export const metadata: Metadata = {
   title: 'Contact Digital Digix — Get a Free Strategy Session',
-  description: 'Ready to scale? Contact Digital Digix for a free growth strategy session. Reach us via WhatsApp, email, or our contact form. Based in Noida, India. Serving clients worldwide.',
+  description: 'Ready to scale? Contact Digital Digix for a free growth strategy session. Reach us via WhatsApp, email, or our contact form. Serving clients worldwide.',
   keywords: [
     'Contact Digital Digix',
     'Digital Marketing Agency Contact',
     'Free Strategy Session',
     'Digital Marketing Consultation',
-    'Digital Digix Noida',
     'Hire Digital Marketing Agency'
   ],
   alternates: {
@@ -42,20 +41,13 @@ export const metadata: Metadata = {
 export default function ContactUsPage() {
   const contactSchema = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'ProfessionalService',
     name: 'Digital Digix',
     description: 'Full-service digital marketing and software development agency specializing in Performance Marketing, SEO, GEO/AEO, Paid Ads, and Web Applications.',
     url: 'https://digitaldigix.com',
     telephone: '+918586989832',
     email: 'contact@digitaldigix.com',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Sector 62',
-      addressLocality: 'Noida',
-      addressRegion: 'Uttar Pradesh',
-      postalCode: '201309',
-      addressCountry: 'IN',
-    },
+    areaServed: 'Worldwide',
     priceRange: '$$',
     openingHours: 'Mo-Sa 09:00-19:00',
     sameAs: [

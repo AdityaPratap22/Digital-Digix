@@ -94,11 +94,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ backgroundColor 
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '14px', padding: '1.25rem' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--bg-badge)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>📍</div>
+              <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--bg-badge)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>🕒</div>
               <div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Head Office</div>
-                <div style={{ fontWeight: 700 }}>Sector 62, Noida, UP, 201309 • New Ashok Nagar, Delhi, 110096</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Working Hours: Mon - Sat: 9AM - 7PM</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Business Hours</div>
+                <div style={{ fontWeight: 700 }}>Mon - Sat: 9:00 AM - 7:00 PM IST</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Serving Clients Worldwide</div>
               </div>
             </div>
           </div>

@@ -85,7 +85,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectLocation, on
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#FFF', marginBottom: '1.25rem' }}>Direct Contact</h4>
             <div style={{ fontSize: '0.875rem', color: '#94A3B8', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <div>📍 Sector 62, Noida, UP, 201309 • New Ashok Nagar, Delhi, 110096</div>
               <div>📞 +91 85869 89832</div>
               <div>✉️ <a href="mailto:contact.digitaldigix@gmail.com" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'} onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}>contact.digitaldigix@gmail.com</a></div>
               <a
