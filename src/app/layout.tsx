@@ -7,7 +7,7 @@ import { ClientLayout } from '@/components/ClientLayout';
 export const metadata: Metadata = {
   metadataBase: new URL('https://digitaldigix.com'),
   title: {
-    default: 'Digital Digix — Performance Marketing, Generative Engine Optimization & Web Applications',
+    default: 'Digital Digix | Digital Marketing Agency | SEO, Social Media & Web Design',
     template: '%s | Digital Digix'
   },
   description: "Digital Digix is India's leading digital growth agency specializing in Performance Marketing, Generative Engine Optimization (GEO/AEO), high-converting web applications, and B2B growth funnels.",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://digitaldigix.com',
-    title: 'Digital Digix — Performance Marketing & Generative Engine Optimization',
+    title: 'Digital Digix | Digital Marketing Agency | SEO, Social Media & Web Design',
     description: 'Scale your business with data-driven performance marketing, generative engine optimization (GEO/AEO), custom web apps, and automated growth funnels.',
     siteName: 'Digital Digix',
     images: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Digital Digix — Performance Marketing & Generative Engine Optimization',
+    title: 'Digital Digix | Digital Marketing Agency | SEO, Social Media & Web Design',
     description: 'Scale your business with data-driven performance marketing, generative engine optimization (GEO/AEO), custom web apps, and automated growth funnels.',
     images: ['https://digitaldigix.com/digital_digix_logo.png'],
     creator: '@digitaldigix',

@@ -119,7 +119,7 @@ export const GraphicItemDetailPage: React.FC<GraphicItemDetailPageProps> = ({ it
         <div style={{ fontSize: '0.875rem', color: '#64748B', marginBottom: '1.5rem' }}>
           <span style={{ cursor: 'pointer', color: '#3B82F6' }} onClick={() => onNavigate('home')}>Home</span> /{' '}
           <span style={{ cursor: 'pointer', color: '#3B82F6' }} onClick={() => onNavigate('services')}>Services</span> /{' '}
-          <span style={{ cursor: 'pointer', color: '#3B82F6' }} onClick={() => onNavigate('graphic-details')}>Graphic Design</span> /{' '}
+          <span style={{ cursor: 'pointer', color: '#3B82F6' }} onClick={() => onNavigate('service-details', 'graphic-design')}>Graphic Design</span> /{' '}
           <span style={{ color: '#0F172A', fontWeight: 700 }}>{matchedItem.name}</span>
         </div>
 
@@ -131,7 +131,7 @@ export const GraphicItemDetailPage: React.FC<GraphicItemDetailPageProps> = ({ it
               if (window.opener && !window.opener.closed) {
                 window.close();
               } else {
-                onNavigate('graphic-details');
+                onNavigate('service-details', 'graphic-design');
               }
             }}
             style={{

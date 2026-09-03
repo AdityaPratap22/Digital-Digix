@@ -103,14 +103,14 @@ export const GraphicDetailPage: React.FC<GraphicDetailPageProps> = ({ categoryId
           <div style={{ fontSize: '0.875rem', color: '#64748B', marginBottom: '1.5rem' }}>
             <span style={{ cursor: 'pointer', color: '#3B82F6' }} onClick={() => onNavigate('home')}>Home</span> /{' '}
             <span style={{ cursor: 'pointer', color: '#3B82F6' }} onClick={() => onNavigate('services')}>Services</span> /{' '}
-            <span style={{ cursor: 'pointer', color: '#3B82F6' }} onClick={() => onNavigate('graphic-details')}>Graphic Design</span> /{' '}
+            <span style={{ cursor: 'pointer', color: '#3B82F6' }} onClick={() => onNavigate('service-details', 'graphic-design')}>Graphic Design</span> /{' '}
             <span style={{ color: '#0F172A', fontWeight: 700 }}>{activeBundle.title}</span>
           </div>
 
           {/* Back Button */}
           <div style={{ marginBottom: '2.5rem' }}>
             <button
-              onClick={() => onNavigate('graphic-details')}
+              onClick={() => onNavigate('service-details', 'graphic-design')}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

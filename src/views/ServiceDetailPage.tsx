@@ -572,7 +572,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceId,
                     e.currentTarget.style.boxShadow = '0 8px 25px rgba(11, 19, 42, 0.03)';
                   }}
                   onClick={() => {
-                    const slug = cat.title.toLowerCase().replace(' & ', '-').replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+                    const slug = cat.title.split('—')[0].trim().toLowerCase().replace(' & ', '-').replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
                     onNavigate('graphic-details', slug);
                   }}
                 >

@@ -387,8 +387,6 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({
                 if (onNavigate) {
                   if (service.title === 'Social Media Marketing') {
                     onNavigate('smm');
-                  } else if (service.title === 'Graphic Design') {
-                    onNavigate('graphic-details');
                   } else {
                     onNavigate('service-details', service.id);
                   }

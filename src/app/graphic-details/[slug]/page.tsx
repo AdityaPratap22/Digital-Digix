@@ -1,6 +1,4 @@
-import React from 'react';
-import type { Metadata } from 'next';
-import { GraphicDetailClient } from './GraphicDetailClient';
+import { redirect } from 'next/navigation';
 
 export function generateStaticParams() {
   return [
@@ -10,14 +8,12 @@ export function generateStaticParams() {
     { slug: 'packaging-labels' },
     { slug: 'digital-ads' },
     { slug: 'illustrations' },
+    { slug: 'standard-creatives' },
+    { slug: 'structured-design' },
+    { slug: 'multi-page-documents' },
     { slug: 'all' },
   ];
 }
-
-export const metadata: Metadata = {
-  title: 'Graphic Design & Creative Production | Digital Digix',
-  description: 'High-conversion visual creatives, brand identity packages, pitch decks, social media templates, and retail packaging design with transparent pricing.',
-};
 
 export default async function GraphicCategorySlugPage({
   params,
@@ -25,5 +21,5 @@ export default async function GraphicCategorySlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return <GraphicDetailClient slug={slug} />;
+  redirect(`/services/graphic-design/${slug}`);
 }

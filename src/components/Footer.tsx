@@ -73,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectLocation, on
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#FFF', marginBottom: '1.25rem' }}>Services</h4>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.875rem', color: '#94A3B8' }}>
-              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('graphic-details')} onMouseEnter={() => router.prefetch('/graphic-details')}>Graphic Design</li>
+              <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'graphic-design')} onMouseEnter={() => router.prefetch('/services/graphic-design')}>Graphic Design</li>
               <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('smm')} onMouseEnter={() => router.prefetch('/smm')}>Social Media Marketing</li>
               <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'website-development')} onMouseEnter={() => router.prefetch('/services/website-development')}>Website Development</li>
               <li style={{ cursor: 'pointer' }} onClick={() => onNavigate('service-details', 'personal-branding')} onMouseEnter={() => router.prefetch('/services/personal-branding')}>Personal Branding</li>

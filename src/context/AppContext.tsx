@@ -194,10 +194,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         router.push('/smm');
         break;
       case 'graphic-details':
-        router.push(slug ? `/graphic-details/${slug}` : '/graphic-details');
+        router.push(slug ? `/services/graphic-design/${slug}` : '/services/graphic-design');
         break;
       case 'design-item':
-        router.push(slug ? `/design-item/${slug}` : '/graphic-details');
+        router.push(slug ? `/services/graphic-design/${slug}` : '/services/graphic-design');
         break;
       case 'service-details':
         router.push(slug ? `/services/${slug}` : '/services');

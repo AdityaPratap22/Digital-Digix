@@ -9,9 +9,9 @@ const SERVICE_MAP: Record<string, { title: string; description: string; keywords
     keywords: ['Social Media Marketing', 'Instagram Marketing', 'Facebook Ads', 'LinkedIn Marketing'],
   },
   'graphic-design': {
-    title: 'Graphic Design Services',
-    description: 'High-impact graphic design for brand identity, social media, print collateral, and digital assets that make your brand unforgettable.',
-    keywords: ['Graphic Design Agency', 'Brand Identity Design', 'Social Media Design', 'Logo Design'],
+    title: 'Graphic Design Services — Per-Design Rates & Fast Turnaround',
+    description: 'High-impact graphic design with transparent per-design rates, 24–48 hour turnaround, source files included, and zero lock-in contracts.',
+    keywords: ['Graphic Design Agency', 'Brand Identity Design', 'Social Media Design', 'Logo Design', 'Per-Design Rates', 'Fast Turnaround Design'],
   },
   'dashboard-kpi-systems': {
     title: 'Dashboard & KPI Systems',
@@ -69,9 +69,11 @@ export async function generateMetadata({
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
 
-  const title = serviceData?.title
-    ? `${serviceData.title} — Zero Lock-In Agency`
-    : `${titleSlug} — Zero Lock-In Agency`;
+  const title = slug === 'graphic-design'
+    ? 'Graphic Design Services — Per-Design Rates & Fast Turnaround'
+    : serviceData?.title
+      ? `${serviceData.title} — Zero Lock-In Agency`
+      : `${titleSlug} — Zero Lock-In Agency`;
   const description = serviceData?.description
     ? serviceData.description
     : `High-ROI ${titleSlug} services with Digital Digix. Zero lock-in contracts, founder-led strategy, and transparent pricing.`;

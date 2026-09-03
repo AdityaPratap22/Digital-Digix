@@ -89,8 +89,6 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenSt
               onClick={() => {
                 if (service.title === 'Social Media Marketing') {
                   onNavigate('smm');
-                } else if (service.title === 'Graphic Design') {
-                  onNavigate('graphic-details');
                 } else {
                   onNavigate('service-details', service.id);
                 }
